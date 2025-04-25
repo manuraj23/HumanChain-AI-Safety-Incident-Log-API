@@ -41,11 +41,14 @@ body {
 }
 
 #formArea input,
-#formArea textarea {
+#formArea textarea,
+#formArea select {
   width: 100%;
   padding: 8px;
   margin: 5px 0;
   box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #formArea button {
@@ -54,6 +57,7 @@ body {
   padding: 10px;
   border: none;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 #formArea button:hover {
