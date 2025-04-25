@@ -113,12 +113,27 @@ function deleteById() {
 }
 
 function submitDelete() {
-  const id = document.getElementById('deleteId').value;
-  fetch(`${API_URL}/${id}`, { method: 'DELETE' })
-    .then(res => res.json())
-    .then(showOutput)
-    .catch(err => showOutput({ data: [{ title: 'Error', description: err.message }] }));
-}
+    const id = document.getElementById('deleteId').value;
+    fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw data;
+  
+        document.getElementById('output').innerHTML = `
+          <div class="incident-card">
+            <h3>Incident Deleted Successfully</h3>
+            <p><strong>ID:</strong> ${id}</p>
+          </div>`;
+      })
+      .catch(err => {
+        const message = err.message || 'Incident not found';
+        document.getElementById('output').innerHTML = `
+          <div class="error-box">
+            <p>${message}</p>
+          </div>`;
+      });
+  }
+  
 
 // Update Form
 function updateById() {
@@ -139,32 +154,38 @@ function updateById() {
 }
 
 function submitUpdate() {
-  const id = document.getElementById('updateId').value;
-  const updatedIncident = {
-    title: document.getElementById('title').value,
-    description: document.getElementById('description').value,
-    severity: document.getElementById('severity').value,
-  };
-
-  fetch(`${API_URL}/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updatedIncident)
-  })
-    .then(async res => {
-      const data = await res.json();
-      if (!res.ok) throw data;
-      showOutput(data);
+    const id = document.getElementById('updateId').value;
+    const updatedIncident = {
+      title: document.getElementById('title').value,
+      description: document.getElementById('description').value,
+      severity: document.getElementById('severity').value,
+    };
+  
+    fetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedIncident)
     })
-    .catch(err => {
-      if (err.errors) {
-        let message = '';
-        for (const key in err.errors) {
-          message += `<p><strong>${key}:</strong> ${err.errors[key]}</p>`;
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw data;
+  
+        document.getElementById('output').innerHTML = `
+          <div class="incident-card">
+            <h3>Incident Updated Successfully</h3>
+            <p><strong>ID:</strong> ${id}</p>
+          </div>`;
+      })
+      .catch(err => {
+        if (err.errors) {
+          let message = '';
+          for (const key in err.errors) {
+            message += `<p><strong>${key}:</strong> ${err.errors[key]}</p>`;
+          }
+          document.getElementById('output').innerHTML = `<div class="error-box">${message}</div>`;
+        } else {
+          document.getElementById('output').innerHTML = `<div class="error-box"><p>${err.message || 'Incident not found'}</p></div>`;
         }
-        document.getElementById('output').innerHTML = `<div class="error-box">${message}</div>`;
-      } else {
-        document.getElementById('output').innerHTML = `<div class="error-box"><p>${err.message || 'Unknown error'}</p></div>`;
-      }
-    });
-}
+      });
+  }
+  
