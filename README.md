@@ -14,7 +14,7 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 - MongoDB
 - Git
 
-##Features:
+## Features:
 - pagination
 - error handling
 - searching based on id
@@ -42,7 +42,7 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 
 ## Snapshots:
 
-###website
+### website
 
 ![image](https://github.com/user-attachments/assets/d452dc46-72f8-429d-8428-d8395626361b)
 
@@ -50,11 +50,11 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 
 ![image](https://github.com/user-attachments/assets/b158aa56-bef5-4935-ac28-c3e7b06b60fb)
 
-###database
+### database
 
 ![image](https://github.com/user-attachments/assets/2596f7e0-b447-475f-a4b4-6fb4ca119dfd)
 
-###Postman
+### Postman
 
 ![image](https://github.com/user-attachments/assets/abea1ec7-9ab7-4b56-a8cd-caf007aadf6d)
 
