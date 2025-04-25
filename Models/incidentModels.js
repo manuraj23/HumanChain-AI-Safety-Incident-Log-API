@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const Counter = require('./counter');
 
 const incidentSchema = new mongoose.Schema({
   id: {
@@ -33,24 +32,7 @@ const incidentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-}, { versionKey: false });
-
-incidentSchema.pre('save', async function (next) {
-  if (this.isNew) {
-    try {
-      const counter = await Counter.findByIdAndUpdate(
-        { _id: 'incidentid' },
-        { $inc: { sequence_value: 1 } },
-        { new: true, upsert: true }
-      );
-      this.id = counter.sequence_value;
-      next();
-    } catch (err) {
-      next(err);
-    }
-  } else {
-    next();
-  }
 });
+
 
 module.exports = mongoose.model('Incident', incidentSchema);
