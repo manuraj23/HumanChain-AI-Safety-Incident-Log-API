@@ -3,6 +3,8 @@ const express = require('express');
 const connectDB = require('./config/db');
 const incidentRoutes = require('./Routes/incidentRoutes');
 const cors = require('cors');
+const path = require('path');
+
 
 dotenv.config();
 const app = express();
@@ -13,10 +15,12 @@ app.use(express.json());
 
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, 'frontend')));
+
 app.use('/incidents', incidentRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Journal API Running...');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 
 app.listen(PORT, () =>
