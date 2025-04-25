@@ -14,6 +14,11 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 - MongoDB
 - Git
 
+##Features:
+- pagination
+- error handling
+- searching based on id
+
 ## Prerequisites
 - npm
 
@@ -31,7 +36,30 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
    ```bash
    npm start
    ```
-4. The application will be accessible at [http://127.0.0.1:5500/frontend/index.html](http://127.0.0.1:5500/frontend/index.html).  
+
+4. Create a file .env in rood directory and set mongo_uri and port number.
+4. The application will be accessible at [http://127.0.0.1:5500/frontend/index.html](http://127.0.0.1:5500/frontend/index.html) if you want to setup and use it on loacl system.  
+
+## Snapshots:
+
+###website
+
+![image](https://github.com/user-attachments/assets/d452dc46-72f8-429d-8428-d8395626361b)
+
+![image](https://github.com/user-attachments/assets/d21b9b2c-245a-497e-bba0-cac7f2123791)
+
+![image](https://github.com/user-attachments/assets/b158aa56-bef5-4935-ac28-c3e7b06b60fb)
+
+###database
+
+![image](https://github.com/user-attachments/assets/2596f7e0-b447-475f-a4b4-6fb4ca119dfd)
+
+###Postman
+
+![image](https://github.com/user-attachments/assets/abea1ec7-9ab7-4b56-a8cd-caf007aadf6d)
+
+![image](https://github.com/user-attachments/assets/a776c01a-1517-4d21-a72b-bcaff0384c25)
+
 
 ## API Endpoints
 ### User Endpoints
@@ -40,8 +68,6 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 - `PUT /incidents` - Update the incident by id.
 - `DELETE /incidents` - Delete the incident by id.
 - `POST /incidents` - Create a new post
-
-
 
 
 ## Code Quality Analysis with SonarQube
