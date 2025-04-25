@@ -10,8 +10,8 @@ function showOutput(data) {
     const card = document.createElement('div');
     card.className = 'incident-card';
 
-    const reportedAt = incident.reportedAt
-      ? new Date(incident.reportedAt).toLocaleString()
+    const reportedAt = incident.reported_at
+      ? new Date(incident.reported_at).toLocaleString()
       : new Date(parseInt(incident._id?.substring(0, 8), 16) * 1000).toLocaleString();
 
     card.innerHTML = `
@@ -85,9 +85,22 @@ function submitCreate() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(incident)
   })
-    .then(res => res.json())
-    .then(showOutput)
-    .catch(err => showOutput({ data: [{ title: 'Error', description: err.message }] }));
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw data;
+      showOutput(data);
+    })
+    .catch(err => {
+      if (err.errors) {
+        let message = '';
+        for (const key in err.errors) {
+          message += `<p><strong>${key}:</strong> ${err.errors[key]}</p>`;
+        }
+        document.getElementById('output').innerHTML = `<div class="error-box">${message}</div>`;
+      } else {
+        document.getElementById('output').innerHTML = `<div class="error-box"><p>${err.message || 'Unknown error'}</p></div>`;
+      }
+    });
 }
 
 // Delete by ID
@@ -101,9 +114,7 @@ function deleteById() {
 
 function submitDelete() {
   const id = document.getElementById('deleteId').value;
-  fetch(`${API_URL}/${id}`, {
-    method: 'DELETE'
-  })
+  fetch(`${API_URL}/${id}`, { method: 'DELETE' })
     .then(res => res.json())
     .then(showOutput)
     .catch(err => showOutput({ data: [{ title: 'Error', description: err.message }] }));
@@ -140,7 +151,20 @@ function submitUpdate() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedIncident)
   })
-    .then(res => res.json())
-    .then(showOutput)
-    .catch(err => showOutput({ data: [{ title: 'Error', description: err.message }] }));
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw data;
+      showOutput(data);
+    })
+    .catch(err => {
+      if (err.errors) {
+        let message = '';
+        for (const key in err.errors) {
+          message += `<p><strong>${key}:</strong> ${err.errors[key]}</p>`;
+        }
+        document.getElementById('output').innerHTML = `<div class="error-box">${message}</div>`;
+      } else {
+        document.getElementById('output').innerHTML = `<div class="error-box"><p>${err.message || 'Unknown error'}</p></div>`;
+      }
+    });
 }
