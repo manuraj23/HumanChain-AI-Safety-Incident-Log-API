@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Safety Incident Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <button onclick="showAll()">Show All</button>
+      <button onclick="showById()">Show by ID</button>
+      <button onclick="createIncident()">Create Incident</button>
+      <button onclick="deleteById()">Delete by ID</button>
+      <button onclick="updateById()">Update by ID</button>
+    </div>
+    <div class="main">
+      <div id="formArea"></div>
+      <div id="output"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
