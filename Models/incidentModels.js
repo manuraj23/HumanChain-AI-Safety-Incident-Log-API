@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Counter = require('./counter');
 
 const incidentSchema = new mongoose.Schema({
   id: {
@@ -10,7 +11,6 @@ const incidentSchema = new mongoose.Schema({
     required: [true, 'Title is required'],
     minlength: [3, 'Title must be at least 3 characters long'],
     maxlength: [100, 'Title must be at most 100 characters long'],
-    unique: true,
     trim: true
   },
   description: {
@@ -30,9 +30,29 @@ const incidentSchema = new mongoose.Schema({
   },
   reported_at: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    select: false
   }
+}, {
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
 });
 
+// Auto-increment logic
+async function getNextSequenceValue(sequenceName) {
+  const counter = await Counter.findByIdAndUpdate(
+    sequenceName,
+    { $inc: { sequence_value: 1 } },
+    { new: true, upsert: true } // create if doesn't exist
+  );
+  return counter.sequence_value;
+}
+
+incidentSchema.pre('save', async function (next) {
+  if (this.isNew && this.id == null) {
+    this.id = await getNextSequenceValue('incident_id');
+  }
+  next();
+});
 
 module.exports = mongoose.model('Incident', incidentSchema);
