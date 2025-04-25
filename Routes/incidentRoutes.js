@@ -8,3 +8,4 @@ router.post('/', incidentController.createIncident);
 router.delete('/:id', incidentController.deleteIncidentById);
 router.put('/:id', incidentController.updateIncidentById);
 module.exports = router;
+
