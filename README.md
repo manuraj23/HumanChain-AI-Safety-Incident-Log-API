@@ -70,7 +70,7 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 - `POST /incidents` - Create a new post
 
 
-## Code Quality Analysis with SonarQube
+## Code Quality Analysis
 We used Mongoose, an Object-Document Mapper (ODM) for MongoDB, to simplify database interactions. It allows us to define schemas and models, enabling cleaner, structured, and more maintainable code. By abstracting raw queries, Mongoose improves code readability and ensures better consistency in data handling throughout the application.
 
 ## Contributing
