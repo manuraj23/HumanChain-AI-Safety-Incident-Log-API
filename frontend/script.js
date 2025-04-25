@@ -31,13 +31,44 @@ function clearForm() {
 }
 
 // Show All Incidents
-function showAll() {
-  clearForm();
-  fetch(API_URL)
-    .then(res => res.json())
-    .then(showOutput)
-    .catch(err => showOutput({ data: [{ title: 'Error', description: err.message }] }));
+function showAll(page = 1) {
+    clearForm();
+    fetch(`${API_URL}?page=${page}`)
+      .then(res => res.json())
+      .then(data => {
+        showOutput(data);
+        showPagination(data.page, data.totalPages);
+      })
+      .catch(err => {
+        document.getElementById('output').innerHTML = `<div class="error-box">${err.message}</div>`;
+      });
 }
+
+function showPagination(current, total) {
+    const container = document.getElementById('output');
+    const pagination = document.createElement('div');
+    pagination.style.marginTop = '1rem';
+    pagination.style.display = 'flex';
+    pagination.style.gap = '10px';
+    pagination.style.flexWrap = 'wrap';
+  
+    for (let i = 1; i <= total; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.style.padding = '6px 12px';
+      btn.style.border = 'none';
+      btn.style.borderRadius = '5px';
+      btn.style.backgroundColor = i === current ? '#1abc9c' : '#bdc3c7';
+      btn.style.color = 'white';
+      btn.style.cursor = 'pointer';
+  
+      btn.onclick = () => showAll(i);
+      pagination.appendChild(btn);
+    }
+  
+    container.appendChild(pagination);
+  }
+  
 
 // Get Incident by ID
 function showById() {
