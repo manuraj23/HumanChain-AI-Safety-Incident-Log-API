@@ -69,16 +69,87 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 
 
 ## API Endpoints
-### User Endpoints
-- `GET /incidents` - Retrieve all incidents.
-- `GET /incidents:id` - Get incident by id.
-- `PUT /incidents` - Update the incident by id.
-- `DELETE /incidents` - Delete the incident by id.
-- `POST /incidents` - Create a new post
 
+The API includes the following routes for managing incidents:
+
+### 1. **Create an Incident** - `POST /incidents/`
+
+   Create a new incident log.
+
+   **Request Body** (JSON):
+   ```json
+   {
+     "title": "Incident Title",
+     "description": "Incident Description",
+     "severity": "High"
+   }
+   ```
+
+   **Response**:
+   - **201 Created** on success
+   - **400 Bad Request** if validation fails
+
+### 2. **Get All Incidents** - `GET /incidents/`
+
+   Retrieve a list of all incidents.
+
+   **Response**:
+   - **200 OK** on success
+   - **404 Not Found** if no incidents are found
+
+### 3. **Get Incident by ID** - `GET /incidents/:id`
+
+   Retrieve an incident by its unique ID.
+
+   **Response**:
+   - **200 OK** with incident data on success
+   - **404 Not Found** if the incident does not exist
+
+### 4. **Delete Incident by ID** - `DELETE /incidents/:id`
+
+   Delete an incident by its unique ID.
+
+   **Response**:
+   - **200 OK** on success
+   - **404 Not Found** if the incident does not exist
+
+---
+
+## Database Setup
+
+This project uses **MongoDB Atlas** for data storage. You don’t need to set up a local MongoDB instance, as the database is hosted remotely on MongoDB Atlas.
+
+### Required Environment Variables
+
+- **MONGODB_URI**: Your MongoDB Atlas connection string (including credentials).
+- **PORT**: The port on which the server should run (default is `3001`).
+
+---
+
+## Design Decisions
+
+1. **MongoDB for Persistence**: MongoDB was chosen as the database for this project because it provides flexible schema management, which is ideal for handling incident logs that might evolve over time. MongoDB's document-oriented structure makes it easy to store incident data.
+
+2. **Express.js for API Routing**: Express.js was used as the web framework because of its simplicity and wide adoption for building RESTful APIs.
+
+3. **Environment Variables**: Environment variables are used for sensitive data such as the MongoDB URI. This ensures that such information isn't hard-coded into the application, making it more secure and easier to manage across environments (e.g., local development, production).
+
+---
 
 ## Code Quality Analysis
 We used Mongoose, an Object-Document Mapper (ODM) for MongoDB, to simplify database interactions. It allows us to define schemas and models, enabling cleaner, structured, and more maintainable code. By abstracting raw queries, Mongoose improves code readability and ensures better consistency in data handling throughout the application.
+
+## Running Tests
+
+This project does not currently include automated tests, but you can use tools like **Postman** or **curl** to test the API endpoints manually.
+
+---
+
+## Conclusion
+
+This project is a basic API service to manage AI safety incidents. It follows common backend development practices, such as using **Express.js** for handling HTTP requests and **MongoDB Atlas** for data persistence. The goal is to provide a simple, scalable API for managing AI safety incidents and to serve as a foundational part of **HumanChain's** AI safety efforts.
+
+---
 
 ## Contributing
 1. Fork the repository.
