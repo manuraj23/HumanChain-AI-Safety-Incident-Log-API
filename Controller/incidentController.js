@@ -2,13 +2,13 @@ const Incident = require('../Models/incidentModels');
 
 exports.getAllIncidents = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;     // default to page 1
-    const limit = parseInt(req.query.limit) || 10;  // default to 10 incidents per page
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
     const total = await Incident.countDocuments();
     const incidents = await Incident.find()
-      .sort({ reported_at: -1 }) // newest first
+      .sort({ reported_at: -1 }) 
       .skip(skip)
       .limit(limit);
 
@@ -23,7 +23,6 @@ exports.getAllIncidents = async (req, res) => {
     res.status(500).json({ status: 'error', message: error.message });
   }
 };
-
 
 exports.getIncidentById = async (req, res) => {
   try {

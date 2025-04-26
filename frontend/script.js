@@ -30,47 +30,47 @@ function clearForm() {
   document.getElementById('formArea').innerHTML = '';
 }
 
-// Show All Incidents
+
 function showAll(page = 1) {
-    clearForm();
-    fetch(`${API_URL}?page=${page}`)
-      .then(res => res.json())
-      .then(data => {
-        showOutput(data);
-        showPagination(data.page, data.totalPages);
-      })
-      .catch(err => {
-        document.getElementById('output').innerHTML = `<div class="error-box">${err.message}</div>`;
-      });
+  clearForm();
+  fetch(`${API_URL}?page=${page}`)
+    .then(res => res.json())
+    .then(data => {
+      showOutput(data);
+      showPagination(data.page, data.totalPages);
+    })
+    .catch(err => {
+      document.getElementById('output').innerHTML = `<div class="error-box">${err.message}</div>`;
+    });
 }
 
 function showPagination(current, total) {
-    const container = document.getElementById('output');
-    const pagination = document.createElement('div');
-    pagination.style.marginTop = '1rem';
-    pagination.style.display = 'flex';
-    pagination.style.gap = '10px';
-    pagination.style.flexWrap = 'wrap';
-  
-    for (let i = 1; i <= total; i++) {
-      const btn = document.createElement('button');
-      btn.textContent = i;
-      btn.style.padding = '6px 12px';
-      btn.style.border = 'none';
-      btn.style.borderRadius = '5px';
-      btn.style.backgroundColor = i === current ? '#1abc9c' : '#bdc3c7';
-      btn.style.color = 'white';
-      btn.style.cursor = 'pointer';
-  
-      btn.onclick = () => showAll(i);
-      pagination.appendChild(btn);
-    }
-  
-    container.appendChild(pagination);
-  }
-  
+  const container = document.getElementById('output');
+  const pagination = document.createElement('div');
+  pagination.style.marginTop = '1rem';
+  pagination.style.display = 'flex';
+  pagination.style.gap = '10px';
+  pagination.style.flexWrap = 'wrap';
 
-// Get Incident by ID
+  for (let i = 1; i <= total; i++) {
+    const btn = document.createElement('button');
+    btn.textContent = i;
+    btn.style.padding = '6px 12px';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '5px';
+    btn.style.backgroundColor = i === current ? '#1abc9c' : '#bdc3c7';
+    btn.style.color = 'white';
+    btn.style.cursor = 'pointer';
+
+    btn.onclick = () => showAll(i);
+    pagination.appendChild(btn);
+  }
+
+  container.appendChild(pagination);
+}
+
+
+
 function showById() {
   clearForm();
   document.getElementById('formArea').innerHTML = `
@@ -87,7 +87,6 @@ function fetchById() {
     .catch(err => showOutput({ data: [{ title: 'Error', description: err.message }] }));
 }
 
-// Create Incident Form
 function createIncident() {
   clearForm();
   document.getElementById('formArea').innerHTML = `
@@ -134,7 +133,7 @@ function submitCreate() {
     });
 }
 
-// Delete by ID
+
 function deleteById() {
   clearForm();
   document.getElementById('formArea').innerHTML = `
@@ -144,29 +143,28 @@ function deleteById() {
 }
 
 function submitDelete() {
-    const id = document.getElementById('deleteId').value;
-    fetch(`${API_URL}/${id}`, { method: 'DELETE' })
-      .then(async res => {
-        const data = await res.json();
-        if (!res.ok) throw data;
-  
-        document.getElementById('output').innerHTML = `
+  const id = document.getElementById('deleteId').value;
+  fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw data;
+
+      document.getElementById('output').innerHTML = `
           <div class="incident-card">
             <h3>Incident Deleted Successfully</h3>
             <p><strong>ID:</strong> ${id}</p>
           </div>`;
-      })
-      .catch(err => {
-        const message = err.message || 'Incident not found';
-        document.getElementById('output').innerHTML = `
+    })
+    .catch(err => {
+      const message = err.message || 'Incident not found';
+      document.getElementById('output').innerHTML = `
           <div class="error-box">
             <p>${message}</p>
           </div>`;
-      });
-  }
-  
+    });
+}
 
-// Update Form
+
 function updateById() {
   clearForm();
   document.getElementById('formArea').innerHTML = `
@@ -185,38 +183,37 @@ function updateById() {
 }
 
 function submitUpdate() {
-    const id = document.getElementById('updateId').value;
-    const updatedIncident = {
-      title: document.getElementById('title').value,
-      description: document.getElementById('description').value,
-      severity: document.getElementById('severity').value,
-    };
-  
-    fetch(`${API_URL}/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedIncident)
-    })
-      .then(async res => {
-        const data = await res.json();
-        if (!res.ok) throw data;
-  
-        document.getElementById('output').innerHTML = `
+  const id = document.getElementById('updateId').value;
+  const updatedIncident = {
+    title: document.getElementById('title').value,
+    description: document.getElementById('description').value,
+    severity: document.getElementById('severity').value,
+  };
+
+  fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updatedIncident)
+  })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw data;
+
+      document.getElementById('output').innerHTML = `
           <div class="incident-card">
             <h3>Incident Updated Successfully</h3>
             <p><strong>ID:</strong> ${id}</p>
           </div>`;
-      })
-      .catch(err => {
-        if (err.errors) {
-          let message = '';
-          for (const key in err.errors) {
-            message += `<p><strong>${key}:</strong> ${err.errors[key]}</p>`;
-          }
-          document.getElementById('output').innerHTML = `<div class="error-box">${message}</div>`;
-        } else {
-          document.getElementById('output').innerHTML = `<div class="error-box"><p>${err.message || 'Incident not found'}</p></div>`;
+    })
+    .catch(err => {
+      if (err.errors) {
+        let message = '';
+        for (const key in err.errors) {
+          message += `<p><strong>${key}:</strong> ${err.errors[key]}</p>`;
         }
-      });
-  }
-  
+        document.getElementById('output').innerHTML = `<div class="error-box">${message}</div>`;
+      } else {
+        document.getElementById('output').innerHTML = `<div class="error-box"><p>${err.message || 'Incident not found'}</p></div>`;
+      }
+    });
+}

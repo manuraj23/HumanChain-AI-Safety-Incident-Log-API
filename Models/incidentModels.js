@@ -38,12 +38,11 @@ const incidentSchema = new mongoose.Schema({
   toObject: { virtuals: true }
 });
 
-// Auto-increment logic
 async function getNextSequenceValue(sequenceName) {
   const counter = await Counter.findByIdAndUpdate(
     sequenceName,
     { $inc: { sequence_value: 1 } },
-    { new: true, upsert: true } // create if doesn't exist
+    { new: true, upsert: true } 
   );
   return counter.sequence_value;
 }
