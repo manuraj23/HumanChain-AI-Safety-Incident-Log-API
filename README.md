@@ -18,7 +18,7 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
 - pagination
 - error handling
 - searching based on id
-- scropt to add local json data tp MongoDB database.
+- script to add local json data to MongoDB database.
 
 ## Prerequisites
 - npm
