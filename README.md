@@ -32,13 +32,14 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
    ```bash
    npm install core dotenv express mongodb mongoose morgan validator nodemon
    ```
-3. Run the application:  
+3. Create a file .env in rood directory and set mongo_uri and port number.
+   
+4. Run the application:  
    ```bash
    npm start
    ```
 
-4. Create a file .env in rood directory and set mongo_uri and port number.
-4. The application will be accessible at [http://127.0.0.1:5500/frontend/index.html](http://127.0.0.1:5500/frontend/index.html) if you want to setup and use it on loacl system.  
+5. The application will be accessible at [http://127.0.0.1:5500/frontend/index.html](http://127.0.0.1:5500/frontend/index.html) if you want to setup and use it on loacl system.  
 
 ## Snapshots:
 
