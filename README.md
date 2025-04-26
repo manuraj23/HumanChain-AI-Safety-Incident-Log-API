@@ -40,7 +40,7 @@ This project is a RESTful API built for HumanChain’s backend intern assignment
    npm start
    ```
 
-5. The application will be accessible at [http://localhost:3001/incidents](http://localhost:3001/incidents) if you want to setup and use it on loacl system.  
+5. The application will be accessible at [http://localhost:3001/](http://localhost:3001/) if you want to setup and use it on loacl system.  
 
 ## Snapshots:
 
