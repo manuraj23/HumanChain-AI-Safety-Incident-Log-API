@@ -1,5 +1,7 @@
-const API_URL = 'http://localhost:3001/incidents';
-
+const API_URL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3001/incidents' // Development
+    : 'https://human-chain-ai-safety-incident-log-2cz9udklc-manu-rajs-projects.vercel.app/incidents'; // Production
 function showOutput(data) {
   const container = document.getElementById('output');
   container.innerHTML = '';
