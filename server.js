@@ -14,10 +14,8 @@ connectDB();
 
 app.use(express.json());
 
-const cors = require('cors');
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://human-chain-ai-safety-incident-log-2cz9udklc-manu-rajs-projects.vercel.app'],
-}));
+app.use(cors());
+
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.use('/incidents', incidentRoutes);
