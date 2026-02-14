@@ -1,6 +1,5 @@
 # HumanChain-AI-Safety-Incident-Log-API
 
-
 ## Overview
 This project is a RESTful API built for HumanChain’s backend intern assignment. It allows logging, retrieving, and managing AI safety incidents using a simple and clean design. Built with Node.js, Express, and MongoDB, the service supports full CRUD functionality, follows REST principles, and includes validation and error handling. It reflects core backend development skills, including routing, persistence, and API structure best practices.
 
